@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 651857ae40de0c2458e500ed3d24883a, type: 3}
-  m_Name: LaserCannonPU
+  m_Name: GrenadeCannonPU
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 6163423090451517394, guid: 3e1c50201c3711842a0d6fb492275f0d, type: 3}
-  weapon: {fileID: 11400000, guid: b7d4a424c1219c54b893d437483e3fb2, type: 2}
+  pickupPrefab: {fileID: 2674291538534593144, guid: 4859fce4b0263c448956b9d2d0ac21bd, type: 3}
+  weapon: {fileID: 11400000, guid: 21e8381f2a1cd5d48b31cc98d68553f0, type: 2}
   ammoAmount: 5
   isShield: 0
   duration: 0

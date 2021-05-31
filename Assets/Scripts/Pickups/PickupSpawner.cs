@@ -24,12 +24,22 @@ namespace Car.Pickup
         private void OnPickedUp()
         {
             // GetComponentInChildren<Collider>().enabled = false;
+            // GetComponentInChildren<Light>().color = Color.black;
             // GetComponentInChildren<MeshRenderer>().enabled = false;
 
             if (spawned != null)
             {
                 spawned.onPickedUp -= OnPickedUp;
             }
+            spawned.gameObject.SetActive(false);
+            //StartCoroutine(Deactivate());
+            
+        }
+
+        IEnumerator Deactivate()
+        {
+            yield return new WaitForSeconds(5f);
+
             spawned.gameObject.SetActive(false);
         }
     }

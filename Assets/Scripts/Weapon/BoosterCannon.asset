@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fd45dc6963fcd84294972f542590ac6, type: 3}
-  m_Name: LaserCannon
+  m_Name: BoosterCannon
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5984181264327486113, guid: 2b348da3e609ef442988503ac7238aae, type: 3}
+  prefab: {fileID: 5984181264327486113, guid: 05374d86564c70f40b4a704609f4b30b, type: 3}
   isProjectile: 1
-  projectilePrefab: {fileID: 2473240477268089227, guid: 5e5a9c5d572275442b779ef0cffe990d, type: 3}
+  startingAmmo: 5
+  projectilePrefab: {fileID: 2060832864731141599, guid: 38d37174945359a4a96850c370c3224c, type: 3}
   projectileSpeed: 400000
   shouldStopOnImpact: 1
-  shouldExplode: 1
+  shouldExplode: 0
   explosionForce: 2500
   explosionRadius: 5
   hitForce: 80000
   damage: 10
+  attackCooldownSeconds: 2

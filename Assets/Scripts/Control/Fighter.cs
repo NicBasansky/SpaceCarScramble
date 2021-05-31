@@ -72,7 +72,7 @@ namespace Car.Combat
                 Cannon spawnedCannon = spawned.GetComponent<Cannon>();
                 spawnedCannons.Add(spawnedCannon);
 
-                weaponSlots[slot].launchTransform = spawned.GetComponent<Cannon>().GetLaunchTransform();
+                weaponSlots[slot].launchTransform = spawnedCannon.GetLaunchTransform();
                 spawnedCannon.slotId = slot;         
             }       
         }

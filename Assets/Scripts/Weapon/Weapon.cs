@@ -14,6 +14,7 @@ namespace Car.Combat
         [Tooltip("If starting ammo is 0 then ammo in infinite")]
         [SerializeField] int startingAmmo = 0;
         [SerializeField] Projectile projectilePrefab;
+        [SerializeField] GameObject impactFX = null;
         [SerializeField] float projectileSpeed = 400000f;
         [SerializeField] bool shouldStopOnImpact = true;
         [SerializeField] bool shouldExplode = true;
@@ -29,6 +30,11 @@ namespace Car.Combat
         public GameObject GetPrefab()
         {
             return prefab;
+        }
+
+        public GameObject GetImpactFX()
+        {
+            return impactFX;
         }
 
         public Projectile GetProjectile()

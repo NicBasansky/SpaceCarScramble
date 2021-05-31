@@ -8,6 +8,7 @@ namespace Car.Pickup
 {
     public class Pickup : MonoBehaviour
     {
+        [SerializeField] ParticleEmissionStopper emissionStopper;
         PowerUp powerUp;
         Fighter fighter;
 
@@ -24,6 +25,11 @@ namespace Car.Pickup
             {
                PickupPowerUp(other.gameObject);
                onPickedUp();
+               if (emissionStopper != null)
+               {
+                    emissionStopper.StopAllParticleEmission();
+
+               }
             }    
         }
 

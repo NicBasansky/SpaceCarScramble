@@ -80,6 +80,7 @@ namespace Car.Combat
 
                         aiController.AffectHealth(weapon.GetDamage());                      
                       
+                        
                         Rigidbody hitRB = aiController.GetBodyRigidBody();
                         aiController.FreezeMovementFromExplosion(3f);
                         hitRB.AddExplosionForce(weapon.GetExplosionForce(), transform.position, weapon.GetExplosionRadius(), 1, ForceMode.Impulse);                                                         
@@ -105,7 +106,15 @@ namespace Car.Combat
             }
         }
 
+        private void PlayImpactFX()
+        {
+            GameObject impactFx = weapon.GetImpactFX();
+            if (impactFx != null)
+            {
+                GameObject fx = Instantiate(impactFx, transform.position, Quaternion.identity);
 
+            }
+        }
         
 
         private void OnTriggerEnter(Collider other) // TODO bouncy projectiles?
@@ -123,13 +132,14 @@ namespace Car.Combat
                 {                   
                     simpleProjectileHit = true;
                 }
-    
+                PlayImpactFX();
             }   
             else if (other.gameObject.tag == "Player")
             {
                 print("hit player");
                 Health playerHealth = other.gameObject.GetComponent<Health>();
                 playerHealth.AffectHealth(-weapon.GetDamage());
+                PlayImpactFX();
             } 
             else if (other.gameObject.layer == LayerMask.NameToLayer("Ground Layer"))
             {
