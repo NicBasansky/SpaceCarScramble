@@ -37,6 +37,12 @@ namespace Car.Combat
         Transform weaponLaunchTransform;
         List<Cannon> spawnedCannons = new List<Cannon>();
 
+        public delegate void CycleWeaponsDelegate(int toSlotIndex);
+        public CycleWeaponsDelegate cycleWeapons;
+
+        public delegate void UpdateWeaponIconDelegate(Sprite newIcon, int slot);
+        public UpdateWeaponIconDelegate updateWeaponIcon;
+
 
         void Start()
         {
@@ -75,7 +81,13 @@ namespace Car.Combat
                 spawnedCannons.Add(spawnedCannon);
 
                 weaponSlots[slot].launchTransform = spawnedCannon.GetLaunchTransform();
-                spawnedCannon.slotId = slot;         
+                spawnedCannon.slotId = slot;       
+
+                if (newWeapon.GetWeaponIcon() != null)
+                {
+                    updateWeaponIcon(newWeapon.GetWeaponIcon(), slot);  
+
+                }
             }       
         }
 
@@ -202,6 +214,7 @@ namespace Car.Combat
             if (weaponSlots[slotIndex].weapon != null)
             {
                 activeWeaponSlot = weaponSlots[slotIndex];
+                cycleWeapons(slotIndex);
                 return;
             }
             
@@ -213,6 +226,7 @@ namespace Car.Combat
             
             activeWeaponSlot = weaponSlots[slotIndex];
 
+            cycleWeapons(slotIndex);
         }
 
         public void AddAmmo(WeaponSlot slot, int additionalAmmo)
@@ -272,6 +286,11 @@ namespace Car.Combat
             
             projectile.SetupProjectile(activeWeaponSlot.launchTransform, activeWeaponSlot.weapon, this.gameObject);
             
+        }
+
+        public Weapon GetDefaultWeapon()
+        {
+            return defaultWeapon;
         }
     }
 

@@ -9,6 +9,7 @@ namespace Car.Combat
     {
         
         [SerializeField] GameObject prefab;
+        [SerializeField] Sprite icon;
         [Tooltip("If false, will raycast rather than lob a projectile")]
         [SerializeField] bool isProjectile = false;
         [Tooltip("If starting ammo is 0 then ammo in infinite")]
@@ -30,6 +31,11 @@ namespace Car.Combat
         public GameObject GetPrefab()
         {
             return prefab;
+        }
+
+        public Sprite GetWeaponIcon()
+        {
+            return icon;
         }
 
         public GameObject GetImpactFX()

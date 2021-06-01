@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: BoosterCannon
   m_EditorClassIdentifier: 
   prefab: {fileID: 5984181264327486113, guid: 05374d86564c70f40b4a704609f4b30b, type: 3}
+  icon: {fileID: 21300000, guid: e5f8e29c0eb39d74e9509b0469b5204c, type: 3}
   isProjectile: 1
   startingAmmo: 5
   projectilePrefab: {fileID: 2060832864731141599, guid: 38d37174945359a4a96850c370c3224c, type: 3}
+  impactFX: {fileID: 0}
   projectileSpeed: 400000
   shouldStopOnImpact: 1
   shouldExplode: 0
