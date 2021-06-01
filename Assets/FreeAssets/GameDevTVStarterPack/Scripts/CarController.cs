@@ -59,6 +59,17 @@ public class CarController : MonoBehaviour
             fighter.FireWeapon();
         }
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            fighter.EnableShield(true);
+            fighter.AffectShieldLife(-Time.deltaTime);
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            fighter.EnableShield(false);
+            
+        }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             fighter.CycleWeapon();

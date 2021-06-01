@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8737336534644831057, guid: 51ad85b16054d27418666cb04b90f9a4, type: 3}
   isProjectile: 1
+  startingAmmo: 0
   projectilePrefab: {fileID: 8414924450584987470, guid: f9d1821fc94fbb74aa08dc6950205121, type: 3}
+  impactFX: {fileID: 100006, guid: 031cbe96da782624498b94bb492d6c26, type: 3}
   projectileSpeed: 400000
   shouldStopOnImpact: 1
   shouldExplode: 0

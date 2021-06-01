@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Car.Control;
+using Car.Combat;
 
 namespace Car.Core
 {
@@ -13,9 +14,14 @@ namespace Car.Core
         [SerializeField] Transform fxParent;
         [SerializeField] GameObject[] objsToOffOnDeath;
         public float health;
+        Fighter fighter;
 
         public event Action onHealthUpdated;
 
+        void Awake()
+        {
+            fighter = GetComponent<Fighter>();
+        }
         void Start()
         {
             health = maxHealth;
@@ -69,6 +75,11 @@ namespace Car.Core
                     o.SetActive(false);
                 }
             }
+        }
+
+        public bool GetIsShieldUp()
+        {
+            return fighter.GetIsShieldUp();
         }
     }
 }

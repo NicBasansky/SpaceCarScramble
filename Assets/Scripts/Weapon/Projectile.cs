@@ -18,6 +18,7 @@ namespace Car.Combat
         bool isLaunching = false;
         bool isExploding = false;
         bool simpleProjectileHit = false;
+        bool shieldUp = false;
         Transform launchTransform;
         //Collision target = null;
         Collider target = null;
@@ -104,6 +105,9 @@ namespace Car.Combat
                 hitRB.AddForce(forceDirection.normalized * weapon.GetHitForce());
                 
             }
+            
+
+
         }
 
         private void PlayImpactFX()
@@ -111,7 +115,19 @@ namespace Car.Combat
             GameObject impactFx = weapon.GetImpactFX();
             if (impactFx != null)
             {
+
                 GameObject fx = Instantiate(impactFx, transform.position, Quaternion.identity);
+
+            }
+        }
+
+        private void PlayImpactFX(Vector3 location)
+        {
+            GameObject impactFx = weapon.GetImpactFX();
+            if (impactFx != null)
+            {
+
+                GameObject fx = Instantiate(impactFx, location, Quaternion.identity);
 
             }
         }
@@ -120,6 +136,20 @@ namespace Car.Combat
         private void OnTriggerEnter(Collider other) // TODO bouncy projectiles?
         {        
             if (other.gameObject == instigator) return;
+            
+            if (other.gameObject.tag == "Shield")
+            {
+                Vector3 vecPlayerToProjectile = (transform.position - other.transform.position);
+                Vector3 impactPos = vecPlayerToProjectile.normalized * 3f;
+
+                PlayImpactFX(other.transform.position + impactPos);
+                //DisableCollider();
+                //StopEmissionsAndDestroy(3f);
+                print("hit shield");
+                Destroy(this.gameObject);
+                return;
+          
+            }  
 
             if (other.gameObject.tag == "Car")
             {         
@@ -133,25 +163,32 @@ namespace Car.Combat
                     simpleProjectileHit = true;
                 }
                 PlayImpactFX();
-            }   
+            }  
             else if (other.gameObject.tag == "Player")
             {
                 print("hit player");
                 Health playerHealth = other.gameObject.GetComponent<Health>();
-                playerHealth.AffectHealth(-weapon.GetDamage());
-                PlayImpactFX();
+                if (!playerHealth.GetIsShieldUp())
+                {
+                    playerHealth.AffectHealth(-weapon.GetDamage());
+                    PlayImpactFX();
+                }
+              
+                
+                //PlayImpactFX();
             } 
             else if (other.gameObject.layer == LayerMask.NameToLayer("Ground Layer"))
             {
                 //print("hit ground");
             
-                StopEmissionsAndDestroy(2f);
+                //StopEmissionsAndDestroy(2f);
             }  
 
             if (shouldStopOnImpact)
             {
-                // DisableCollider();
-                // StopEmissionsAndDestroy(3f);
+                DisableCollider();
+                StopEmissionsAndDestroy(3f);
+                PlayImpactFX();
             }
             else
             {

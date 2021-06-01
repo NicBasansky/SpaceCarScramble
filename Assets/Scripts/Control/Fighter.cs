@@ -4,9 +4,6 @@ using UnityEngine;
 using Car.Pickup;
 using System;
 
-
-// need to handle shield
-// need to handle ammo
 namespace Car.Combat
 {
     [System.Serializable]
@@ -25,6 +22,10 @@ namespace Car.Combat
         [SerializeField] Transform weaponTransform;
         [SerializeField] float attackAngle = 30f;
         [SerializeField] int ammo = 0;
+        [SerializeField] GameObject shield;
+        [SerializeField] float maxShieldLife = 5f;
+        [SerializeField] float shieldLife = 3f;
+        bool shieldUp = false;
         int numSlots = 3;
         WeaponSlot activeWeaponSlot = null;
         int slotIndex = 0;
@@ -44,6 +45,7 @@ namespace Car.Combat
             activeWeaponSlot = weaponSlots[0];
             cooldown = true;
             StartCoroutine(Cooldown());
+            EnableShield(false);
         }
 
         private void BuildWeaponSlots()
@@ -81,7 +83,7 @@ namespace Car.Combat
         {
             if (powerUp.GetIsShield())
             {
-               // SetupShield();
+                AffectShieldLife(powerUp.GetDurationContribution());
                 return; // ??
             }
 
@@ -100,6 +102,17 @@ namespace Car.Combat
             {
                 AddWeapon(powerUp.GetWeapon());
             }
+        }
+
+        public void AffectShieldLife(float delta)
+        {
+            shieldLife += delta;
+            shieldLife = Mathf.Clamp(shieldLife, 0, maxShieldLife);
+        }
+
+        public bool GetIsShieldUp()
+        {
+            return shieldUp;
         }
 
         private bool DoesPlayerHaveWeapon(Weapon newWeapon)
@@ -151,6 +164,34 @@ namespace Car.Combat
                 cooldown = true;
                 StartCoroutine(Cooldown());
             }
+        }
+
+        public void EnableShield(bool enabled)
+        {
+            if (shield == null) return;
+
+            if (shieldLife <= 0)
+            {
+                shield.SetActive(false);
+                shieldUp = false;
+                return;
+            }
+            
+            shield.SetActive(enabled);
+            if (enabled)
+            {
+                shieldUp = true;
+            }
+            else
+            {
+                shieldUp = false;
+            }
+            
+        }
+
+        public float GetShieldLife()
+        {
+            return shieldLife;
         }
 
         public void CycleWeapon()

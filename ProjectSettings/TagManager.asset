@@ -8,6 +8,8 @@ TagManager:
   - Fire
   - Obstacle
   - Car
+  - Death
+  - Shield
   layers:
   - Default
   - TransparentFX
