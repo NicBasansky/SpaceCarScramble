@@ -21,6 +21,7 @@ public class CarController : MonoBehaviour
     float turnInput;
     bool isGrounded;
     bool isDead;
+    bool isWaitingOnDetonation;
 
     void Awake()
     {
@@ -59,7 +60,11 @@ public class CarController : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
-            fighter.FireWeapon();
+            if (!CheckIfWaitingOnProjectileDetonation())
+            {
+                fighter.FireWeapon();
+            }
+            
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -76,7 +81,10 @@ public class CarController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            fighter.CycleWeapon();
+            if (!CheckIfWaitingOnProjectileDetonation())
+            {
+                fighter.CycleWeapon();
+            }
         }
     }
 
@@ -126,6 +134,21 @@ public class CarController : MonoBehaviour
         {
            // print("well, well, it appears I'm not touching what I believe to be the ground, dude");
         }
+    }
+
+    private bool CheckIfWaitingOnProjectileDetonation()
+    {
+        return isWaitingOnDetonation;
+    }
+
+    public void setIsWaitingOnDetonation(bool isWaiting)
+    {
+        isWaitingOnDetonation = isWaiting;
+    }
+
+    public float GetTurnInput()
+    {
+        return turnInput;
     }
 
     public void Die()

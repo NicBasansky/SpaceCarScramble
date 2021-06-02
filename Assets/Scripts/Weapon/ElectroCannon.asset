@@ -18,7 +18,7 @@ MonoBehaviour:
   startingAmmo: 0
   maxAmmo: 15
   infiniteAmmo: 1
-  projectilePrefab: {fileID: 8414924450584987470, guid: f9d1821fc94fbb74aa08dc6950205121, type: 3}
+  projectilePrefab: {fileID: -7895054544550116958, guid: f9d1821fc94fbb74aa08dc6950205121, type: 3}
   impactFX: {fileID: 100006, guid: 031cbe96da782624498b94bb492d6c26, type: 3}
   projectileSpeed: 400000
   shouldStopOnImpact: 1

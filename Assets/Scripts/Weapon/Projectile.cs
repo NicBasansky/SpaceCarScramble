@@ -6,24 +6,24 @@ using Car.Control;
 
 namespace Car.Combat
 {
-    public class Projectile : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour
     {
-        Rigidbody rb;
-        Weapon weapon;
-        [SerializeField] ParticleEmissionStopper emissionStopper;
-        [SerializeField] float lifeTime = 4f;
-        [SerializeField] float fadeTimeBeforeDestroy = 2f;
-        bool shouldExplode = false;
-        bool shouldStopOnImpact = true;
-        bool isLaunching = false;
-        bool isExploding = false;
-        bool simpleProjectileHit = false;
-        bool shieldUp = false;
-        Transform launchTransform;
+        protected Rigidbody rb;
+        protected Weapon weapon;
+        [SerializeField] protected ParticleEmissionStopper emissionStopper;
+        [SerializeField] protected float lifeTime = 4f;
+        [SerializeField] protected float fadeTimeBeforeDestroy = 2f;
+        protected bool shouldExplode = false;
+        protected bool shouldStopOnImpact = true;
+        protected bool isLaunching = false;
+        protected bool isExploding = false;
+        protected bool simpleProjectileHit = false;
+        protected bool shieldUp = false;
+        protected Transform launchTransform;
         //Collision target = null;
-        Collider target = null;
-        GameObject instigator = null;
-        Transform fxParent;
+        protected Collider target = null;
+        protected GameObject instigator = null;
+        protected Transform fxParent;
 
         void Awake()
         {
@@ -36,22 +36,11 @@ namespace Car.Combat
             Destroy(this.gameObject, lifeTime + 3f);
         }
 
-
-
-        void LateUpdate()
-        {
-            // if (isLaunching)
-            // {
-            //     transform.Translate(launchTransform.forward * weapon.GetProjectileSpeed() * Time.deltaTime);
-
-            // }    
-        }        
-
-        void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (isLaunching)
             {
-                rb.AddForce(launchTransform.forward * weapon.GetProjectileSpeed() * Time.deltaTime);
+                MoveForward();
                 isLaunching = false;
 
             }
@@ -70,7 +59,12 @@ namespace Car.Combat
             }
         } 
 
-        private void Explode()
+        protected virtual void MoveForward()
+        {
+            rb.AddForce(launchTransform.forward * weapon.GetProjectileSpeed() * Time.deltaTime);
+        }
+
+        protected void Explode()
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, weapon.GetExplosionRadius());
                 foreach (Collider hit in hits)
@@ -83,14 +77,21 @@ namespace Car.Combat
                         aiController.AffectHealth(weapon.GetDamage());                      
                       
                         
-                        Rigidbody hitRB = aiController.GetBodyRigidBody();
-                        aiController.FreezeMovementFromExplosion(3f);
-                        hitRB.AddExplosionForce(weapon.GetExplosionForce(), transform.position, weapon.GetExplosionRadius(), 1, ForceMode.Impulse);                                                         
+                        //Rigidbody hitRB = aiController.GetBodyRigidBody();
+                        //aiController.FreezeMovementFromExplosion(3f);
+                        //hitRB.AddExplosionForce(weapon.GetExplosionForce(), transform.position, weapon.GetExplosionRadius(), 1, ForceMode.Impulse);                                                         
+                    
+                        //Simple Proj Hit
+                        Rigidbody hitRB = aiController.GetSphereRigidBody();
+                        aiController.FreezeMovementFromHit(0.5f);
+                        Vector3 forceDirection = transform.position - target.transform.position;
+                        hitRB.AddForce(forceDirection.normalized * weapon.GetHitForce());
+                    
                     }
                 }
         }
 
-        private void SimpleProjectileHit()
+        protected void SimpleProjectileHit()
         {
             if (target == null) return;
             if (target.gameObject.tag == "Car")
@@ -111,8 +112,13 @@ namespace Car.Combat
 
         }
 
-        private void PlayImpactFX()
+        protected void PlayImpactFX()
         {
+            if (weapon == null)
+            {
+                print("weapon is null");
+                return;
+            }
             GameObject impactFx = weapon.GetImpactFX();
             if (impactFx != null)
             {
@@ -122,7 +128,7 @@ namespace Car.Combat
             }
         }
 
-        private void PlayImpactFX(Vector3 location)
+        protected void PlayImpactFX(Vector3 location)
         {
             GameObject impactFx = weapon.GetImpactFX();
             if (impactFx != null)
@@ -135,9 +141,10 @@ namespace Car.Combat
         }
         
 
-        private void OnTriggerEnter(Collider other) // TODO bouncy projectiles?
+        public void OnTriggerEnter(Collider other) // TODO bouncy projectiles?
         {        
             if (other.gameObject == instigator) return;
+            //print(instigator.name);
             
             if (other.gameObject.tag == "Shield")
             {
@@ -166,7 +173,7 @@ namespace Car.Combat
                 }
                 PlayImpactFX();
             }  
-            else if (other.gameObject.tag == "Player")
+            else if (other.gameObject.tag == "Player" && instigator.tag != "Player")
             {
                 print("hit player");
                 Health playerHealth = other.gameObject.GetComponent<Health>();
@@ -175,33 +182,34 @@ namespace Car.Combat
                     playerHealth.AffectHealth(-weapon.GetDamage());
                     PlayImpactFX();
                 }
-              
-                
-                //PlayImpactFX();
-            } 
-            else if (other.gameObject.layer == LayerMask.NameToLayer("Ground Layer"))
-            {
-                //print("hit ground");
-            
-                //StopEmissionsAndDestroy(2f);
             }  
+            else
+            {
+                if (shouldStopOnImpact)
+                {
+                    DisableCollider();
+                    StopEmissionsAndDestroy(3f);
+                    PlayImpactFX();
+                    return;
+                }
+            }
 
-            if (shouldStopOnImpact)
+            if (shouldStopOnImpact && other.gameObject.layer != LayerMask.NameToLayer("Ground Layer"))
             {
                 DisableCollider();
                 StopEmissionsAndDestroy(3f);
-                PlayImpactFX();
+                return;
             }
-            else
-            {
-                Invoke("StopParticleEmmissions", lifeTime - fadeTimeBeforeDestroy);
-                Invoke("DisableCollider", lifeTime - fadeTimeBeforeDestroy);
             
-            }   
+            
+            Invoke("StopParticleEmmissions", lifeTime - fadeTimeBeforeDestroy);
+            Invoke("DisableCollider", lifeTime - fadeTimeBeforeDestroy);
+            
+             
 
         }
 
-        private void StopParticleEmissions()
+        protected void StopParticleEmissions()
         {
             if (emissionStopper != null)
             {
@@ -210,7 +218,7 @@ namespace Car.Combat
             }
         }
 
-        private void DisableCollider()
+        protected void DisableCollider()
         {
             Collider collider = GetComponent<Collider>();
             if (collider)
@@ -219,7 +227,7 @@ namespace Car.Combat
             }
         }
 
-        private void StopEmissionsAndDestroy(float destroyDelay)
+        protected void StopEmissionsAndDestroy(float destroyDelay)
         {
             if (emissionStopper != null)
             {
@@ -229,7 +237,7 @@ namespace Car.Combat
             Destroy(this.gameObject, destroyDelay); // TODO remove via object poo            
         }
 
-        public void SetupProjectile(Transform launchTransform, Weapon weapon, GameObject instigator, Transform fxParent)
+        public virtual void SetupProjectile(Transform launchTransform, Weapon weapon, GameObject instigator, Transform fxParent)
         {
             this.weapon = weapon;
             this.launchTransform = launchTransform;
@@ -240,6 +248,12 @@ namespace Car.Combat
             isLaunching = true;
             transform.parent = this.fxParent;
         }
+
+        // void OnDrawGizmosSelected()
+        // {
+        //     Gizmos.color = Color.red;
+        //     Gizmos.DrawWireSphere(transform.position, weapon.GetExplosionRadius());
+        // }
 
     }
 }

@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fd45dc6963fcd84294972f542590ac6, type: 3}
-  m_Name: BoosterCannon
+  m_Name: LightSnake
   m_EditorClassIdentifier: 
   prefab: {fileID: 5984181264327486113, guid: 05374d86564c70f40b4a704609f4b30b, type: 3}
   icon: {fileID: 21300000, guid: e5f8e29c0eb39d74e9509b0469b5204c, type: 3}
   isProjectile: 1
-  startingAmmo: 5
-  projectilePrefab: {fileID: 2060832864731141599, guid: 38d37174945359a4a96850c370c3224c, type: 3}
-  impactFX: {fileID: 0}
-  projectileSpeed: 400000
+  startingAmmo: 6
+  maxAmmo: 10
+  infiniteAmmo: 0
+  projectilePrefab: {fileID: 2866422828354133232, guid: 38d37174945359a4a96850c370c3224c, type: 3}
+  impactFX: {fileID: 100010, guid: 20d8a946a50cfd448b26a920d9c97c9b, type: 3}
+  projectileSpeed: 40000
   shouldStopOnImpact: 1
   shouldExplode: 0
   explosionForce: 2500
   explosionRadius: 5
   hitForce: 80000
-  damage: 10
+  damage: 60
   attackCooldownSeconds: 2

@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3127655379645514831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59594273850198833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b70aa0502842fd48b5f31d4b8fcd3fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  emissionStopper: {fileID: 3913135723493642808}
+  lifeTime: 4
+  fadeTimeBeforeDestroy: 2
 --- !u!114 &3913135723493642808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24,6 +40,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4159263173634170245, guid: 33f74c648f19255408d9e8058aa8c0b3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159263173634170245, guid: 33f74c648f19255408d9e8058aa8c0b3, type: 3}
+      propertyPath: emissionStopper
+      value: 
+      objectReference: {fileID: 3913135723493642808}
+    - target: {fileID: 5084071075114527423, guid: 33f74c648f19255408d9e8058aa8c0b3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5084071075114527423, guid: 33f74c648f19255408d9e8058aa8c0b3, type: 3}
       propertyPath: emissionStopper
       value: 
@@ -78,6 +106,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33f74c648f19255408d9e8058aa8c0b3, type: 3}
+--- !u!1 &59594273850198833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6540365253525845073, guid: 33f74c648f19255408d9e8058aa8c0b3, type: 3}
+  m_PrefabInstance: {fileID: 6491854366197825376}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &830091565165467404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5877937244500027500, guid: 33f74c648f19255408d9e8058aa8c0b3, type: 3}

@@ -15,14 +15,16 @@ MonoBehaviour:
   prefab: {fileID: 5984181264327486113, guid: fad5f69251f786c4da412307225c8970, type: 3}
   icon: {fileID: 21300000, guid: df5153fca31c9bf47b2d36359b5dd373, type: 3}
   isProjectile: 1
-  startingAmmo: 5
-  projectilePrefab: {fileID: 2060832864731141599, guid: 2aa477d06cdf8c54f8bf7cc480ba4160, type: 3}
+  startingAmmo: 6
+  maxAmmo: 10
+  infiniteAmmo: 0
+  projectilePrefab: {fileID: 3127655379645514831, guid: 2aa477d06cdf8c54f8bf7cc480ba4160, type: 3}
   impactFX: {fileID: 100010, guid: 234717dbf9a3af6448613b7d090c7f86, type: 3}
   projectileSpeed: 200000
   shouldStopOnImpact: 1
-  shouldExplode: 0
+  shouldExplode: 1
   explosionForce: 2500
-  explosionRadius: 5
+  explosionRadius: 9
   hitForce: 80000
-  damage: 10
-  attackCooldownSeconds: 2
+  damage: 30
+  attackCooldownSeconds: 3.2

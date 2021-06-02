@@ -329,6 +329,11 @@ namespace Car.Combat
         {
             return defaultWeapon;
         }
+
+        public Weapon GetCurrentWeapon()
+        {
+            return activeWeaponSlot.weapon;
+        }
     }
 
 }
