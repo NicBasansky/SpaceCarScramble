@@ -4,6 +4,16 @@ using UnityEngine;
 using Car.Pickup;
 using System;
 
+// different weapon types
+// scene lighting
+// place pickups
+// start screen
+// pause screen
+// end screen
+// finish game loop
+// post processing
+// sound
+
 namespace Car.Combat
 {
     [System.Serializable]
@@ -25,6 +35,7 @@ namespace Car.Combat
         [SerializeField] GameObject shield;
         [SerializeField] float maxShieldLife = 5f;
         [SerializeField] float shieldLife = 3f;
+        [SerializeField] Transform fxParent;
         bool shieldUp = false;
         int numSlots = 3;
         WeaponSlot activeWeaponSlot = null;
@@ -222,11 +233,19 @@ namespace Car.Combat
                 return;
             }
             
+            int counter = 0;
             while (weaponSlots[slotIndex].weapon == null)
             {
                 slotIndex++;
                 slotIndex %= weaponSlots.Count;
-            }          
+                counter++;
+                if (counter >= numSlots)
+                {
+                    slotIndex = 0;
+                    break;
+                }
+            }  
+                  
             
             activeWeaponSlot = weaponSlots[slotIndex];
 
@@ -288,11 +307,12 @@ namespace Car.Combat
         }
 
         public void FireWeapon()
-        {             
+        {   
+                if (activeWeaponSlot.weapon == null) return;          
                 // TODO Get projectiles from object pool
                 Projectile projectile = Instantiate(activeWeaponSlot.weapon.GetProjectile(), activeWeaponSlot.launchTransform.position, Quaternion.identity);
                 
-                projectile.SetupProjectile(activeWeaponSlot.launchTransform, activeWeaponSlot.weapon, this.gameObject);                
+                projectile.SetupProjectile(activeWeaponSlot.launchTransform, activeWeaponSlot.weapon, this.gameObject, fxParent);                
                 if (this.gameObject.tag == "Player")
                 {
                     AffectAmmo(activeWeaponSlot, -1);

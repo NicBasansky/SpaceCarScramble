@@ -19,7 +19,7 @@ MonoBehaviour:
   maxAmmo: 15
   infiniteAmmo: 1
   projectilePrefab: {fileID: 2473240477268089227, guid: 5e5a9c5d572275442b779ef0cffe990d, type: 3}
-  impactFX: {fileID: 0}
+  impactFX: {fileID: 100010, guid: 20d8a946a50cfd448b26a920d9c97c9b, type: 3}
   projectileSpeed: 400000
   shouldStopOnImpact: 1
   shouldExplode: 0

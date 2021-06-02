@@ -602,9 +602,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  deathFX: {fileID: 0}
+  deathFX: {fileID: 100014, guid: 3b3f6f982b75f19458bd92a5f0e40f17, type: 3}
   fxParent: {fileID: 0}
   objsToOffOnDeath: []
+  invincibilityDuration: 2.5
+  invinsibilityDeltaTime: 0.15
+  model: {fileID: 1155015382728052401}
   health: 0
 --- !u!114 &6032678132253144333
 MonoBehaviour:
@@ -626,6 +629,7 @@ MonoBehaviour:
   shield: {fileID: 0}
   maxShieldLife: 5
   shieldLife: 3
+  fxParent: {fileID: 0}
 --- !u!114 &4416712350975768700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,6 +917,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e7a94fee19dc144a1131036a04d4e2, type: 3}
+--- !u!1 &1155015382728052401 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1807339265750282, guid: a8e7a94fee19dc144a1131036a04d4e2, type: 3}
+  m_PrefabInstance: {fileID: 1153233340899425211}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1156918736050716161 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4267105628816826, guid: a8e7a94fee19dc144a1131036a04d4e2, type: 3}

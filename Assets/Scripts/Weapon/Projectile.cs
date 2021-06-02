@@ -23,6 +23,7 @@ namespace Car.Combat
         //Collision target = null;
         Collider target = null;
         GameObject instigator = null;
+        Transform fxParent;
 
         void Awake()
         {
@@ -117,7 +118,7 @@ namespace Car.Combat
             {
 
                 GameObject fx = Instantiate(impactFx, transform.position, Quaternion.identity);
-
+                fx.transform.parent = fxParent;
             }
         }
 
@@ -128,6 +129,7 @@ namespace Car.Combat
             {
 
                 GameObject fx = Instantiate(impactFx, location, Quaternion.identity);
+                fx.transform.parent = fxParent;
 
             }
         }
@@ -227,14 +229,16 @@ namespace Car.Combat
             Destroy(this.gameObject, destroyDelay); // TODO remove via object poo            
         }
 
-        public void SetupProjectile(Transform launchTransform, Weapon weapon, GameObject instigator)
+        public void SetupProjectile(Transform launchTransform, Weapon weapon, GameObject instigator, Transform fxParent)
         {
             this.weapon = weapon;
             this.launchTransform = launchTransform;
             this.instigator = instigator;
+            this.fxParent = fxParent;
             shouldExplode = weapon.GetShouldExplode();
             shouldStopOnImpact = weapon.GetShouldProjectileStopOnImpact();
             isLaunching = true;
+            transform.parent = this.fxParent;
         }
 
     }

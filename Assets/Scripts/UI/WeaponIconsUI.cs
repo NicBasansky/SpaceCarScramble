@@ -170,7 +170,7 @@ namespace Car.UI
             }
         }
 
-        void RemoveIcon(int slot)
+        void RemoveIcon(int slot) // TODO test if null e
         {
             switch (slot)
             {

@@ -322,13 +322,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: 42f8d9b0dd6465541b39d23d997b21a4, type: 2}
-  weapons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  weaponSlots: []
   weaponTransform: {fileID: 1023840118235340235}
   attackAngle: 30
   ammo: 0
+  shield: {fileID: 0}
+  maxShieldLife: 5
+  shieldLife: 3
+  fxParent: {fileID: 0}
 --- !u!114 &3497969002697670103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,8 +346,10 @@ MonoBehaviour:
   deathFX: {fileID: 100012, guid: a905d8e5159ffeb46baa8d2a7624717f, type: 3}
   fxParent: {fileID: 0}
   objsToOffOnDeath:
-  - {fileID: 8170948977072810272}
   - {fileID: 1602479905450808728}
+  invincibilityDuration: 2.5
+  invinsibilityDeltaTime: 0.15
+  model: {fileID: 1602702159525883026}
   health: 0
 --- !u!65 &5586837905659012191
 BoxCollider:
@@ -451,6 +454,11 @@ GameObject:
 --- !u!4 &1597049702018491598 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4917030328423680, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
+  m_PrefabInstance: {fileID: 1601210250628166094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1602702159525883026 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1500980007755100, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
   m_PrefabInstance: {fileID: 1601210250628166094}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5411591136876887015

@@ -13,8 +13,13 @@ namespace Car.Core
         [SerializeField] GameObject deathFX;
         [SerializeField] Transform fxParent;
         [SerializeField] GameObject[] objsToOffOnDeath;
+        [SerializeField] float invincibilityDuration = 2.5f;
+        [SerializeField] float invinsibilityDeltaTime = 0.15f;
+        [SerializeField] GameObject model; 
+        Vector3 initialScale;
         public float health;
         Fighter fighter;
+        bool isInvincible = false;
 
         public event Action onHealthUpdated;
 
@@ -26,10 +31,13 @@ namespace Car.Core
         {
             health = maxHealth;
             onHealthUpdated();
+            initialScale = model.transform.localScale;
         }
 
         public void AffectHealth(float delta)
         {
+            if (isInvincible) return;
+
             health += delta;
             health = Mathf.Clamp(health, 0, maxHealth);
 
@@ -38,7 +46,10 @@ namespace Car.Core
             if (health <= 0)
             {
                 Die();
+                return;
             }
+
+            StartCoroutine(BecomeInvincible());
             
         }
 
@@ -51,6 +62,33 @@ namespace Car.Core
             }
 
             return health / maxHealth;
+        }
+
+        private IEnumerator BecomeInvincible()
+        {
+            isInvincible = true;
+
+            for (float i = 0; i < invincibilityDuration; i += invinsibilityDeltaTime)
+            {
+                if (model.transform.localScale == Vector3.one)
+                {
+                    ScaleModelTo(Vector3.zero);
+                }
+                else
+                {
+                    ScaleModelTo(initialScale);
+                }
+                yield return new WaitForSeconds(invinsibilityDeltaTime);
+            }
+
+            ScaleModelTo(initialScale);
+
+            isInvincible = false;
+        }
+
+        private void ScaleModelTo(Vector3 newScale)
+        {
+            model.transform.localScale = newScale;
         }
 
         private void Die()
@@ -70,6 +108,7 @@ namespace Car.Core
                 GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
                 fx.transform.parent = fxParent;
 
+                GetComponent<CarController>().Die();
                 foreach(GameObject o in objsToOffOnDeath)
                 {
                     o.SetActive(false);

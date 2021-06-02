@@ -20,6 +20,7 @@ public class CarController : MonoBehaviour
     float moveInput;
     float turnInput;
     bool isGrounded;
+    bool isDead;
 
     void Awake()
     {
@@ -49,11 +50,13 @@ public class CarController : MonoBehaviour
     }
 
     void Update()
-    {
+    { 
         MovementInput();
         TurnVehicle();
         MoveCarBodyWithSphere();
         
+        if (isDead) return;
+
         if (Input.GetKeyDown("space"))
         {
             fighter.FireWeapon();
@@ -64,6 +67,7 @@ public class CarController : MonoBehaviour
             fighter.EnableShield(true);
             fighter.AffectShieldLife(-Time.deltaTime);
         }
+
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             fighter.EnableShield(false);
@@ -87,11 +91,18 @@ public class CarController : MonoBehaviour
         {
             moveInput *= reverseSpeed;
         }
+
+        if (isDead)
+            moveInput = 0;
     }
 
     void TurnVehicle()
     {
         turnInput = Input.GetAxisRaw("Horizontal");
+        if (isDead)
+        {
+            turnInput = 0;
+        }
         float newRotation = turnInput * turnSpeed * Time.deltaTime;
         transform.Rotate(0, newRotation, 0, Space.World);
     }
@@ -115,6 +126,11 @@ public class CarController : MonoBehaviour
         {
            // print("well, well, it appears I'm not touching what I believe to be the ground, dude");
         }
+    }
+
+    public void Die()
+    {
+        isDead = true;
     }
 
 }
