@@ -514,8 +514,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3599815, y: 1.2485504, z: 3.172329}
-  m_Center: {x: -0.17999077, y: 0.19, z: 0.06280041}
+  m_Size: {x: 3.67, y: 1.2485504, z: 4.87}
+  m_Center: {x: 0, y: 0.19, z: 0.43}
 --- !u!114 &7169023407098524962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +623,9 @@ MonoBehaviour:
   weaponTransform: {fileID: 8350607838664701178}
   attackAngle: 20
   ammo: 0
+  shield: {fileID: 0}
+  maxShieldLife: 5
+  shieldLife: 3
 --- !u!114 &4416712350975768700
 MonoBehaviour:
   m_ObjectHideFlags: 0

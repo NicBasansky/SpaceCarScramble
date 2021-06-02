@@ -16,6 +16,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: de226bd492b80a041899eee9937a2c37, type: 3}
   isProjectile: 1
   startingAmmo: 0
+  maxAmmo: 15
+  infiniteAmmo: 1
   projectilePrefab: {fileID: 2473240477268089227, guid: 5e5a9c5d572275442b779ef0cffe990d, type: 3}
   impactFX: {fileID: 0}
   projectileSpeed: 400000

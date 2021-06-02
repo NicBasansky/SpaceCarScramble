@@ -12,8 +12,9 @@ namespace Car.Combat
         [SerializeField] Sprite icon;
         [Tooltip("If false, will raycast rather than lob a projectile")]
         [SerializeField] bool isProjectile = false;
-        [Tooltip("If starting ammo is 0 then ammo in infinite")]
         [SerializeField] int startingAmmo = 0;
+        [SerializeField] int maxAmmo = 15;
+        [SerializeField] bool infiniteAmmo = false;
         [SerializeField] Projectile projectilePrefab;
         [SerializeField] GameObject impactFX = null;
         [SerializeField] float projectileSpeed = 400000f;
@@ -43,6 +44,11 @@ namespace Car.Combat
             return impactFX;
         }
 
+        public bool GetHasInfiniteAmmo()
+        {
+            return infiniteAmmo;
+        }
+
         public Projectile GetProjectile()
         {
             return projectilePrefab;
@@ -51,6 +57,11 @@ namespace Car.Combat
         public int GetStartingAmmo()
         {
             return startingAmmo;
+        }
+
+        public int GetMaxAmmo()
+        {
+            return maxAmmo;
         }
 
         public float GetProjectileSpeed()

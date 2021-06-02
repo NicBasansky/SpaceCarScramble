@@ -43,6 +43,9 @@ namespace Car.Combat
         public delegate void UpdateWeaponIconDelegate(Sprite newIcon, int slot);
         public UpdateWeaponIconDelegate updateWeaponIcon;
 
+        public delegate void UpdateAmmoDelegate(WeaponSlot slot, int newAmmo);
+        public UpdateAmmoDelegate updateAmmo;
+
 
         void Start()
         {
@@ -86,6 +89,7 @@ namespace Car.Combat
                 if (newWeapon.GetWeaponIcon() != null)
                 {
                     updateWeaponIcon(newWeapon.GetWeaponIcon(), slot);  
+                    updateAmmo(weaponSlots[slot], newWeapon.GetStartingAmmo());
 
                 }
             }       
@@ -106,7 +110,7 @@ namespace Car.Combat
                 {
                     if (slot.assignedSlot == hasWeaponInSlot)
                     {
-                        AddAmmo(slot, powerUp.GetAmmoContribution()); 
+                        AffectAmmo(slot, powerUp.GetAmmoContribution()); 
                     }   // TODO increase power
                 }
             }
@@ -229,9 +233,13 @@ namespace Car.Combat
             cycleWeapons(slotIndex);
         }
 
-        public void AddAmmo(WeaponSlot slot, int additionalAmmo)
+        public void AffectAmmo(WeaponSlot slot, int delta)
         {
-            slot.ammo += additionalAmmo;
+            if (slot.weapon.GetHasInfiniteAmmo()) return;
+
+            slot.ammo += delta;
+            slot.ammo = Mathf.Clamp(slot.ammo, 0, slot.weapon.GetMaxAmmo());
+            updateAmmo(slot, slot.ammo);
             
         }
 
@@ -280,14 +288,23 @@ namespace Car.Combat
         }
 
         public void FireWeapon()
-        {
-            // TODO Get projectiles from object pool
-            Projectile projectile = Instantiate(activeWeaponSlot.weapon.GetProjectile(), activeWeaponSlot.launchTransform.position, Quaternion.identity);
-            
-            projectile.SetupProjectile(activeWeaponSlot.launchTransform, activeWeaponSlot.weapon, this.gameObject);
-            
-        }
-
+        {             
+                // TODO Get projectiles from object pool
+                Projectile projectile = Instantiate(activeWeaponSlot.weapon.GetProjectile(), activeWeaponSlot.launchTransform.position, Quaternion.identity);
+                
+                projectile.SetupProjectile(activeWeaponSlot.launchTransform, activeWeaponSlot.weapon, this.gameObject);                
+                if (this.gameObject.tag == "Player")
+                {
+                    AffectAmmo(activeWeaponSlot, -1);
+                    if (activeWeaponSlot.ammo <= 0 && !activeWeaponSlot.weapon.GetHasInfiniteAmmo())
+                    {
+                        activeWeaponSlot.weapon = null;
+                        CycleWeapon();
+                    }
+                }
+                
+        } 
+        
         public Weapon GetDefaultWeapon()
         {
             return defaultWeapon;

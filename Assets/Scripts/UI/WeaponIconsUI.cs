@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Car.Combat;
+using TMPro;
 
 namespace Car.UI
 {
@@ -17,6 +18,13 @@ namespace Car.UI
         [SerializeField] Image emptyImage1;
         [SerializeField] Image emptyImage2;
         [SerializeField] Image emptyImage3;
+        [SerializeField] GameObject ammoGO1;
+        [SerializeField] GameObject ammoGO2;
+        [SerializeField] GameObject ammoGO3;
+        [SerializeField] TextMeshProUGUI ammoCount1;
+        [SerializeField] TextMeshProUGUI ammoCount2;
+        [SerializeField] TextMeshProUGUI ammoCount3;
+
         int slotIndex = 0;
 
         Fighter fighter;
@@ -27,6 +35,7 @@ namespace Car.UI
             fighter = GameObject.FindGameObjectWithTag("Player").GetComponent<Fighter>();
             fighter.cycleWeapons += CycleIcons;
             fighter.updateWeaponIcon += AddWeaponIcon;
+            fighter.updateAmmo += UpdateAmmo;
         }
 
         void Start()
@@ -68,19 +77,22 @@ namespace Car.UI
             }
 
             emptyImage1.gameObject.SetActive(false);
+            ammoGO1.SetActive(false);
 
             slotIcon2.gameObject.SetActive(false);
             emptyImage2.gameObject.SetActive(true);
+            ammoGO2.SetActive(false);
 
             slotIcon3.gameObject.SetActive(false);
             emptyImage3.gameObject.SetActive(true);
+            ammoGO3.SetActive(false);
             
             slotSelection1.gameObject.SetActive(true);
             slotSelection2.gameObject.SetActive(false);
             slotSelection3.gameObject.SetActive(false);
         }
 
-        public void AddWeaponIcon(Sprite newIcon, int slot)
+        private void AddWeaponIcon(Sprite newIcon, int slot)
         {
             switch (slot)
             {
@@ -102,6 +114,83 @@ namespace Car.UI
             }
         }
 
+        private void UpdateAmmo(WeaponSlot slot, int newAmmo)
+        {
+            bool infiniteAmmo = slot.weapon.GetHasInfiniteAmmo();
+            switch (slot.assignedSlot)
+            {
+                case 0:
+                    if (infiniteAmmo)
+                    {
+                        ammoGO1.SetActive(false);
+                        return;
+                    }
+                    else 
+                    {
+                        ammoGO1.SetActive(true);
+                        ammoCount1.text = newAmmo.ToString();
+                        if (newAmmo <= 0)
+                        {
+                            RemoveIcon(0);
+                        }
+                    }
+                    break;
+                case 1:
+                    if (infiniteAmmo)
+                    {
+                        ammoGO2.SetActive(false);
+                        return;
+                    }
+                    else 
+                    {
+                        ammoGO2.SetActive(true);
+                        ammoCount2.text = newAmmo.ToString();
+                        if (newAmmo <= 0)
+                        {
+                            RemoveIcon(1);
+                        }
+                    }
+                    break;
+                case 2:
+                    if (infiniteAmmo)
+                    {
+                        ammoGO3.SetActive(false);
+                        return;
+                    }
+                    else 
+                    {
+                        ammoGO3.SetActive(true);
+                        ammoCount3.text = newAmmo.ToString();
+                        if (newAmmo <= 0)
+                        {
+                            RemoveIcon(2);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        void RemoveIcon(int slot)
+        {
+            switch (slot)
+            {
+                case 0:
+                    slotIcon1.gameObject.SetActive(false);
+                    ammoGO1.SetActive(false);
+                    emptyImage1.gameObject.SetActive(false);
+                    break;
+                case 1:
+                    slotIcon2.gameObject.SetActive(false);
+                    ammoGO2.SetActive(false);
+                    emptyImage2.gameObject.SetActive(true);
+                    break;
+                case 2:
+                    slotIcon3.gameObject.SetActive(false);
+                    ammoGO3.SetActive(false);
+                    emptyImage3.gameObject.SetActive(true);
+                    break;
+            }
+        }
         
     }
 
