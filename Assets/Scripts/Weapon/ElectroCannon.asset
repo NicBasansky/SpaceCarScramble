@@ -26,5 +26,5 @@ MonoBehaviour:
   explosionForce: 2500
   explosionRadius: 5
   hitForce: 80000
-  damage: 10
+  damage: 20
   attackCooldownSeconds: 2

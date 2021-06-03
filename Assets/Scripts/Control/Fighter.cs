@@ -4,9 +4,8 @@ using UnityEngine;
 using Car.Pickup;
 using System;
 
-// different weapon types
+
 // scene lighting
-// place pickups
 // start screen
 // pause screen
 // end screen

@@ -16,7 +16,11 @@ namespace Car.Core
         [SerializeField] float invincibilityDuration = 2.5f;
         [SerializeField] float invinsibilityDeltaTime = 0.15f;
         [SerializeField] GameObject model; 
+        [SerializeField] Light pointLight1;
+        [SerializeField] Light pointLight2;
         Vector3 initialScale;
+        Color pointLightInitCol1;
+        Color pointLightInitCol2;
         public float health;
         Fighter fighter;
         bool isInvincible = false;
@@ -35,6 +39,8 @@ namespace Car.Core
             health = maxHealth;
             onHealthUpdated();
             initialScale = model.transform.localScale;
+            pointLightInitCol1 = pointLight1.color;
+            pointLightInitCol2 = pointLight2.color;
         }
 
         public void AffectHealth(float delta)
@@ -77,17 +83,28 @@ namespace Car.Core
                 if (model.transform.localScale == Vector3.one)
                 {
                     ScaleModelTo(Vector3.zero);
+                    SetPointLightColour(pointLight1, Color.black);
+                    SetPointLightColour(pointLight2, Color.black);
                 }
                 else
                 {
                     ScaleModelTo(initialScale);
+                    SetPointLightColour(pointLight1, pointLightInitCol1);
+                    SetPointLightColour(pointLight2, pointLightInitCol2);
                 }
                 yield return new WaitForSeconds(invinsibilityDeltaTime);
             }
 
             ScaleModelTo(initialScale);
+            SetPointLightColour(pointLight1, pointLightInitCol1);
+            SetPointLightColour(pointLight2, pointLightInitCol2);
 
             isInvincible = false;
+        }
+
+        private void SetPointLightColour(Light light, Color color)
+        {
+            light.color = color;
         }
 
         private void ScaleModelTo(Vector3 newScale)
