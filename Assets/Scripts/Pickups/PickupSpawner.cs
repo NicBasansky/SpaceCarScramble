@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,11 @@ namespace Car.Pickup
     public class PickupSpawner : MonoBehaviour
     {
         [SerializeField] PowerUp pickupToSpawn;
+        float respawnDelay = 20f;
         Pickup spawned = null;
+        bool hasPickedUp = false;
+
+        public event Action pickupRespawn;
         
         void Awake()
         {
@@ -23,24 +28,27 @@ namespace Car.Pickup
 
         private void OnPickedUp()
         {
-            // GetComponentInChildren<Collider>().enabled = false;
-            // GetComponentInChildren<Light>().color = Color.black;
-            // GetComponentInChildren<MeshRenderer>().enabled = false;
 
-            if (spawned != null)
-            {
-                spawned.onPickedUp -= OnPickedUp;
-            }
+            // if (spawned != null)
+            // {
+            //     spawned.onPickedUp -= OnPickedUp;
+            // }
             spawned.gameObject.SetActive(false);
-            //StartCoroutine(Deactivate());
+            StartCoroutine(Respawn());
             
         }
 
-        IEnumerator Deactivate()
+        IEnumerator Respawn()
         {
-            yield return new WaitForSeconds(5f);
+            if (!hasPickedUp)
+            {
+                hasPickedUp = true;
+            
+                yield return new WaitForSeconds(respawnDelay);
 
-            spawned.gameObject.SetActive(false);
+                spawned.gameObject.SetActive(true);
+                hasPickedUp = false;
+            }
         }
     }
 }

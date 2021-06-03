@@ -20,7 +20,10 @@ namespace Car.Core
         public float health;
         Fighter fighter;
         bool isInvincible = false;
+        bool isDead = false;
 
+
+        public event Action onAiCarDied;
         public event Action onHealthUpdated;
 
         void Awake()
@@ -37,6 +40,7 @@ namespace Car.Core
         public void AffectHealth(float delta)
         {
             if (isInvincible) return;
+            if (isDead) return;
 
             health += delta;
             health = Mathf.Clamp(health, 0, maxHealth);
@@ -94,7 +98,7 @@ namespace Car.Core
         private void Die()
         {
             print(gameObject.name + " has died.");
-
+            isDead = true;
             AIController aiController = GetComponent<AIController>();
             if (aiController != null)
             {
@@ -102,6 +106,7 @@ namespace Car.Core
                 GameObject fx = Instantiate(deathFX, transform.position, Quaternion.identity);
                 fx.transform.parent = fxParent;
                 Destroy(this.gameObject, 0.2f);
+                onAiCarDied();
             }
             else // is player
             {

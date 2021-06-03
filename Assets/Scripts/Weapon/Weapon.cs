@@ -26,6 +26,7 @@ namespace Car.Combat
         [SerializeField] float hitForce = 80000f;
         [SerializeField] float damage = 10f;
         [SerializeField] float attackCooldownSeconds = 2f;
+
         //[SerializeField] 
         // particle systems
 
@@ -103,6 +104,7 @@ namespace Car.Combat
         {
             return attackCooldownSeconds;
         }
+
     }
     
 

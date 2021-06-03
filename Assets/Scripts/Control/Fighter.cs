@@ -311,7 +311,7 @@ namespace Car.Combat
                 if (activeWeaponSlot.weapon == null) return;          
                 // TODO Get projectiles from object pool
                 Projectile projectile = Instantiate(activeWeaponSlot.weapon.GetProjectile(), activeWeaponSlot.launchTransform.position, Quaternion.identity);
-                
+        
                 projectile.SetupProjectile(activeWeaponSlot.launchTransform, activeWeaponSlot.weapon, this.gameObject, fxParent);                
                 if (this.gameObject.tag == "Player")
                 {
@@ -324,6 +324,16 @@ namespace Car.Combat
                 }
                 
         } 
+
+        public float GetShieldLifeFraction()
+        {
+            if (maxShieldLife == 0)
+            {
+                return 0;
+            }
+            return shieldLife / maxShieldLife;
+        }
+
         
         public Weapon GetDefaultWeapon()
         {

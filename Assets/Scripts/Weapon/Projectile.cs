@@ -73,10 +73,7 @@ namespace Car.Combat
                     {
                         AIController aiController = hit.GetComponent<AIController>();
                         if (aiController == null) return;
-
-                        aiController.AffectHealth(weapon.GetDamage());                      
                       
-                        
                         //Rigidbody hitRB = aiController.GetBodyRigidBody();
                         //aiController.FreezeMovementFromExplosion(3f);
                         //hitRB.AddExplosionForce(weapon.GetExplosionForce(), transform.position, weapon.GetExplosionRadius(), 1, ForceMode.Impulse);                                                         
@@ -84,8 +81,14 @@ namespace Car.Combat
                         //Simple Proj Hit
                         Rigidbody hitRB = aiController.GetSphereRigidBody();
                         aiController.FreezeMovementFromHit(0.5f);
-                        Vector3 forceDirection = transform.position - target.transform.position;
-                        hitRB.AddForce(forceDirection.normalized * weapon.GetHitForce());
+                        if (target != null)
+                        {
+                            Vector3 forceDirection = transform.position - target.transform.position;
+                            hitRB.AddForce(forceDirection.normalized * weapon.GetHitForce());
+                        }
+                       
+
+                        aiController.AffectHealth(weapon.GetDamage());       
                     
                     }
                 }
@@ -144,7 +147,6 @@ namespace Car.Combat
         public void OnTriggerEnter(Collider other) // TODO bouncy projectiles?
         {        
             if (other.gameObject == instigator) return;
-            //print(instigator.name);
             
             if (other.gameObject.tag == "Shield")
             {
@@ -187,9 +189,10 @@ namespace Car.Combat
             {
                 if (shouldStopOnImpact)
                 {
+                    PlayImpactFX();
                     DisableCollider();
                     StopEmissionsAndDestroy(3f);
-                    PlayImpactFX();
+                    
                     return;
                 }
             }

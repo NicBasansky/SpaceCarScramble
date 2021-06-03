@@ -6,7 +6,7 @@ namespace Car.Combat
 {
     public class Grenade : Projectile
     {
-        bool remotelyDetonated = false;
+       
         CarController player;
         
         // Start is called before the first frame update
@@ -20,12 +20,11 @@ namespace Car.Combat
         
         void Update()
         {
-            if (!isExploding && Input.GetKeyDown(KeyCode.Space) && !remotelyDetonated)
+            if (!isExploding && Input.GetKeyDown(KeyCode.Space))
             {          
                 isExploding = true;
                 DisableCollider();
                 PlayImpactFX();
-                //remotelyDetonated = true;
                 player.setIsWaitingOnDetonation(false);
                 StopEmissionsAndDestroy(.2f);
 
@@ -59,12 +58,6 @@ namespace Car.Combat
             }
         }
 
-        // protected override void MoveForward()
-        // {
-        //     base.MoveForward();
-        // }
-
       
     }
-
 }

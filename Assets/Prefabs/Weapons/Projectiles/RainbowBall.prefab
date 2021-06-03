@@ -32,6 +32,21 @@ MonoBehaviour:
   emissionStopper: {fileID: 6475299884705258034}
   lifeTime: 4
   fadeTimeBeforeDestroy: 2
+--- !u!114 &6416068805543811805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474470417265035109}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e3c42083460caf45bb16a483cc029a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emissionStopper: {fileID: 6475299884705258034}
+  lifeTime: 4
+  fadeTimeBeforeDestroy: 2
 --- !u!1001 &4333601518917140510
 PrefabInstance:
   m_ObjectHideFlags: 0
