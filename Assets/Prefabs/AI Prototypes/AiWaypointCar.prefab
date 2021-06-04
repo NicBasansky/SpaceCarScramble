@@ -705,6 +705,7 @@ MonoBehaviour:
   model: {fileID: 1155015382728052401}
   pointLight1: {fileID: 824827210077451702}
   pointLight2: {fileID: 2043217742630484743}
+  deathSound: {fileID: 8300000, guid: 67f7ca1c0dc319245910666ff6fe3544, type: 3}
   health: 0
 --- !u!114 &6032678132253144333
 MonoBehaviour:
@@ -727,6 +728,7 @@ MonoBehaviour:
   maxShieldLife: 5
   shieldLife: 3
   fxParent: {fileID: 0}
+  weaponSwitchSound: {fileID: 0}
 --- !u!114 &4416712350975768700
 MonoBehaviour:
   m_ObjectHideFlags: 0

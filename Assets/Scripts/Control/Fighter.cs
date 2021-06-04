@@ -32,9 +32,11 @@ namespace Car.Combat
         [SerializeField] float maxShieldLife = 5f;
         [SerializeField] float shieldLife = 3f;
         [SerializeField] Transform fxParent;
+        [SerializeField] AudioClip weaponSwitchSound;
         bool shieldUp = false;
         int numSlots = 3;
         WeaponSlot activeWeaponSlot = null;
+        AudioSource audioSource;
         int slotIndex = 0;
         int hasWeaponInSlot = 0;
 
@@ -54,6 +56,10 @@ namespace Car.Combat
         public UpdateAmmoDelegate updateAmmo;
 
 
+        void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
         void Start()
         {
             BuildWeaponSlots();
@@ -219,6 +225,8 @@ namespace Car.Combat
 
         public void CycleWeapon()
         {
+            Weapon currentWeapon = weaponSlots[slotIndex].weapon;
+
             slotIndex++;
             slotIndex %= weaponSlots.Count;
 
@@ -226,6 +234,7 @@ namespace Car.Combat
             {
                 activeWeaponSlot = weaponSlots[slotIndex];
                 cycleWeapons(slotIndex);
+                AudioSource.PlayClipAtPoint(weaponSwitchSound, transform.position);
                 return;
             }
             
@@ -240,9 +249,15 @@ namespace Car.Combat
                     slotIndex = 0;
                     break;
                 }
+                               
             }  
-                  
             
+            if (!ReferenceEquals(currentWeapon, weaponSlots[slotIndex].weapon))
+            {
+                AudioSource.PlayClipAtPoint(weaponSwitchSound, transform.position);
+            }
+            
+
             activeWeaponSlot = weaponSlots[slotIndex];
 
             cycleWeapons(slotIndex);
@@ -317,6 +332,11 @@ namespace Car.Combat
                         activeWeaponSlot.weapon = null;
                         CycleWeapon();
                     }
+                }
+
+                if (activeWeaponSlot.weapon.GetFireSound())
+                {
+                    AudioSource.PlayClipAtPoint(activeWeaponSlot.weapon.GetFireSound(), transform.position);
                 }
                 
         } 

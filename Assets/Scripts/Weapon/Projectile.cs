@@ -24,10 +24,12 @@ namespace Car.Combat
         protected Collider target = null;
         protected GameObject instigator = null;
         protected Transform fxParent;
+        //protected AudioSource audioSource;
 
         void Awake()
         {
             rb = GetComponent<Rigidbody>(); 
+            
         }   
 
         void Start()
@@ -128,9 +130,12 @@ namespace Car.Combat
 
                 GameObject fx = Instantiate(impactFx, transform.position, Quaternion.identity);
                 fx.transform.parent = fxParent;
+                
             }
+            PlayImpactSound();
         }
 
+        
         protected void PlayImpactFX(Vector3 location)
         {
             GameObject impactFx = weapon.GetImpactFX();
@@ -141,8 +146,17 @@ namespace Car.Combat
                 fx.transform.parent = fxParent;
 
             }
+            PlayImpactSound();
         }
         
+        protected void PlayImpactSound()
+        {
+            AudioClip impactSound = weapon.GetImpactSound();
+            if (impactSound != null)
+            {
+                AudioSource.PlayClipAtPoint(impactSound, transform.position);
+            }
+        }
 
         public void OnTriggerEnter(Collider other) // TODO bouncy projectiles?
         {        

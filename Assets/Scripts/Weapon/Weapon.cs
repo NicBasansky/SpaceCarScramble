@@ -26,6 +26,8 @@ namespace Car.Combat
         [SerializeField] float hitForce = 80000f;
         [SerializeField] float damage = 10f;
         [SerializeField] float attackCooldownSeconds = 2f;
+        [SerializeField] AudioClip fireSound;
+        [SerializeField] AudioClip impactSound;
 
         //[SerializeField] 
         // particle systems
@@ -103,6 +105,16 @@ namespace Car.Combat
         public float GetAttackCooldownSeconds()
         {
             return attackCooldownSeconds;
+        }
+
+        public AudioClip GetImpactSound()
+        {
+            return impactSound;
+        }
+
+        public AudioClip GetFireSound()
+        {
+            return fireSound;
         }
 
     }

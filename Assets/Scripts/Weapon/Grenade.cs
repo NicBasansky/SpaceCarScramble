@@ -24,7 +24,7 @@ namespace Car.Combat
             {          
                 isExploding = true;
                 DisableCollider();
-                PlayImpactFX();
+                PlayImpactFX(transform.position);
                 player.setIsWaitingOnDetonation(false);
                 StopEmissionsAndDestroy(.2f);
 

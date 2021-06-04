@@ -17,7 +17,9 @@ public class CarController : MonoBehaviour
     [SerializeField] float gravity = 980f;
     [SerializeField] EndScreenUI endScreenUI;
     [SerializeField] GameObject pauseScreen;
+    //[SerializeField] AudioClip accelAudio;
     AiCarManager aiCarManager;
+    [SerializeField] AudioSource engineAudioSource;
     
     Fighter fighter;
 
@@ -35,6 +37,7 @@ public class CarController : MonoBehaviour
     {
         fighter = GetComponent<Fighter>();
         aiCarManager = FindObjectOfType<AiCarManager>();
+        
     }
 
     void Start()
@@ -101,6 +104,7 @@ public class CarController : MonoBehaviour
             if (!CheckIfWaitingOnProjectileDetonation())
             {
                 fighter.CycleWeapon();
+                
             }
         }
 
@@ -126,11 +130,23 @@ public class CarController : MonoBehaviour
         if (moveInput > 0)
         {
             moveInput *= forwardSpeed;
+            
+            PlayEngineSounds();
+            
+        }
+        else if (Mathf.Approximately(moveInput, 0))
+        {
+            if (engineAudioSource.isPlaying)
+            {
+                engineAudioSource.Stop();
+            }
         }
         else
         {
             moveInput *= reverseSpeed;
+            PlayEngineSounds();
         }
+
 
         if (isDead)
             moveInput = 0;
@@ -145,6 +161,14 @@ public class CarController : MonoBehaviour
         }
         float newRotation = turnInput * turnSpeed * Time.deltaTime;
         transform.Rotate(0, newRotation, 0, Space.World);
+    }
+
+    void PlayEngineSounds()
+    {
+        if (!engineAudioSource.isPlaying)
+            {
+                engineAudioSource.Play();
+            }
     }
 
     void MoveCarBodyWithSphere()

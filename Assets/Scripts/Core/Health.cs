@@ -18,6 +18,7 @@ namespace Car.Core
         [SerializeField] GameObject model; 
         [SerializeField] Light pointLight1;
         [SerializeField] Light pointLight2;
+        [SerializeField] AudioClip deathSound;
         Vector3 initialScale;
         Color pointLightInitCol1;
         Color pointLightInitCol2;
@@ -117,6 +118,9 @@ namespace Car.Core
             print(gameObject.name + " has died.");
             isDead = true;
             AIController aiController = GetComponent<AIController>();
+
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);
+
             if (aiController != null)
             {
                 aiController.Die();

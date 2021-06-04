@@ -28,3 +28,5 @@ MonoBehaviour:
   hitForce: 80000
   damage: 60
   attackCooldownSeconds: 2
+  fireSound: {fileID: 8300000, guid: 7f4c4f6fa1b811945aa1f4043fe5574f, type: 3}
+  impactSound: {fileID: 8300000, guid: 92d76381b3982f8408f18849282c3eb6, type: 3}

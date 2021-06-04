@@ -189,6 +189,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2149068103059234877, guid: 3e1c50201c3711842a0d6fb492275f0d, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2620844885265610301, guid: 3e1c50201c3711842a0d6fb492275f0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4706294651326679019, guid: 3e1c50201c3711842a0d6fb492275f0d, type: 3}
       propertyPath: m_Name
       value: BubbleShieldPickup

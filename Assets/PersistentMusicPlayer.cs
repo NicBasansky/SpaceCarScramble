@@ -23,6 +23,7 @@ public class PersistentMusicPlayer : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = mainSynth;
         audioSource.Play();
+        
     }
 
     
