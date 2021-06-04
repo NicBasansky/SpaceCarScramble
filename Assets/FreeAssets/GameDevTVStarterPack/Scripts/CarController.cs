@@ -21,11 +21,14 @@ public class CarController : MonoBehaviour
     AiCarManager aiCarManager;
     [SerializeField] AudioSource engineAudioSource;
     ParticleEmissionStopper emissionStopper;
+    [SerializeField] float inputDelay = 2f;
+    [SerializeField] GameObject[] uiToDisableDuringPause;
     
     Fighter fighter;
 
     float moveInput;
     float turnInput;
+    bool canMove = false;
     bool isGrounded;
     bool isDead = false;
     bool isWaitingOnDetonation = false;
@@ -51,6 +54,9 @@ public class CarController : MonoBehaviour
 
         pauseScreen.SetActive(false);
         winScreenUp = false;
+        StartCoroutine(AddInputDelay());
+        PlayAfterburner(false);
+        //engineAudioSource.Stop();
     }
 
     void FixedUpdate()
@@ -73,6 +79,7 @@ public class CarController : MonoBehaviour
     void Update()
     { 
         if (winScreenUp) return;
+        
 
         MovementInput();
         TurnVehicle();
@@ -110,34 +117,74 @@ public class CarController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape))
         {
             paused = !paused;
             if (paused)
             {
                 pauseScreen.SetActive(true);
                 Time.timeScale = 0;
+                foreach (var go in uiToDisableDuringPause)
+                {
+                    go.SetActive(false);
+                }
             }
             else
             {
                 pauseScreen.SetActive(false);
                 Time.timeScale = 1;
+                foreach (var go in uiToDisableDuringPause)
+                {
+                    go.SetActive(true);
+                }
             }
         }
     }
 
+    IEnumerator AddInputDelay()
+    {
+        yield return new WaitForSeconds(inputDelay);
+        canMove = true;
+    }
+
     private void MovementInput()
     {
-        moveInput = Input.GetAxisRaw("Vertical");
-        if (moveInput > 0)
+        if (!canMove)
         {
-            moveInput *= forwardSpeed;
+            moveInput = 0;
+            return;
+        }
+       // moveInput = Input.GetAxisRaw("Vertical");
+        //if (moveInput > 0)
+        if (Input.GetKey(KeyCode.W))
+        {
+            moveInput = 1;
+            moveInput *= forwardSpeed; //* Time.deltaTime; 2300 forward speed if using deltaTime
             
             PlayEngineSounds();
             PlayAfterburner(true);
             
         }
-        else if (Mathf.Approximately(moveInput, 0))
+        // else if (Mathf.Approximately(moveInput, 0))
+        // {
+        //     if (engineAudioSource.isPlaying)
+        //     {
+        //         engineAudioSource.Stop();
+               
+        //     }
+        //     if (emissionStopper.IsEmitting())
+        //     {
+        //         PlayAfterburner(false);
+        //     }
+        // }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            moveInput = -1;
+            moveInput *= reverseSpeed;
+            PlayEngineSounds();
+            PlayAfterburner(true);
+        }
+        else
         {
             if (engineAudioSource.isPlaying)
             {
@@ -148,12 +195,7 @@ public class CarController : MonoBehaviour
             {
                 PlayAfterburner(false);
             }
-        }
-        else
-        {
-            moveInput *= reverseSpeed;
-            PlayEngineSounds();
-            PlayAfterburner(true);
+            moveInput = 0;
         }
 
 
@@ -176,13 +218,32 @@ public class CarController : MonoBehaviour
 
     void TurnVehicle()
     {
-        turnInput = Input.GetAxisRaw("Horizontal");
+        if (!canMove)
+        {
+            turnInput = 0;
+            return;
+        }
+        //turnInput = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKey(KeyCode.A))
+        {
+            turnInput = -1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            turnInput = 1;
+        }
+        else
+        {
+            turnInput = 0;
+        }
+        
         if (isDead)
         {
             turnInput = 0;
         }
         float newRotation = turnInput * turnSpeed * Time.deltaTime;
         transform.Rotate(0, newRotation, 0, Space.World);
+
     }
 
     void PlayEngineSounds()

@@ -1276,7 +1276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4039778367150434744, guid: 0abb09d647e3ddd4d9a853ccd505faee, type: 3}
       propertyPath: m_Name
-      value: Button (1)
+      value: QuitButton
       objectReference: {fileID: 0}
     - target: {fileID: 6899758568524348803, guid: 0abb09d647e3ddd4d9a853ccd505faee, type: 3}
       propertyPath: m_text
