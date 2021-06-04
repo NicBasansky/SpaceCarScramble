@@ -15,22 +15,37 @@ public class CarController : MonoBehaviour
     [SerializeField] float distanceCheck = .2f;
     [SerializeField] LayerMask groundLayers;
     [SerializeField] float gravity = 980f;
+    [SerializeField] EndScreenUI endScreenUI;
+    [SerializeField] GameObject pauseScreen;
+    AiCarManager aiCarManager;
+    
     Fighter fighter;
 
     float moveInput;
     float turnInput;
     bool isGrounded;
-    bool isDead;
-    bool isWaitingOnDetonation;
+    bool isDead = false;
+    bool isWaitingOnDetonation = false;
+    bool paused = false;
+    bool winScreenUp = false;
+
+    
 
     void Awake()
     {
         fighter = GetComponent<Fighter>();
+        aiCarManager = FindObjectOfType<AiCarManager>();
     }
+
     void Start()
     {
         // this simply is making sure we don't have issues with the car body following the sphere
         sphereRigidbody.transform.parent = null;
+        endScreenUI.gameObject.SetActive(false);
+        aiCarManager.endMatch += EndMatch;
+
+        pauseScreen.SetActive(false);
+        winScreenUp = false;
     }
 
     void FixedUpdate()
@@ -52,6 +67,8 @@ public class CarController : MonoBehaviour
 
     void Update()
     { 
+        if (winScreenUp) return;
+
         MovementInput();
         TurnVehicle();
         MoveCarBodyWithSphere();
@@ -84,6 +101,21 @@ public class CarController : MonoBehaviour
             if (!CheckIfWaitingOnProjectileDetonation())
             {
                 fighter.CycleWeapon();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            paused = !paused;
+            if (paused)
+            {
+                pauseScreen.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                pauseScreen.SetActive(false);
+                Time.timeScale = 1;
             }
         }
     }
@@ -154,6 +186,15 @@ public class CarController : MonoBehaviour
     public void Die()
     {
         isDead = true;
+        endScreenUI.gameObject.SetActive(true);
+        endScreenUI.SetPlayerWins(false);
+    }
+
+    private void EndMatch() // player wins
+    {
+        endScreenUI.gameObject.SetActive(true);
+        endScreenUI.SetPlayerWins(true);
+        winScreenUp = true;
     }
 
 }

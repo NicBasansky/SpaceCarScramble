@@ -9,7 +9,7 @@ public class AiCarManager : MonoBehaviour
     //List<Health> remainingCars = new List<Health>();
 
     public event Action onUIUpdate;
-    public event Action endMatch; // TODO implement
+    public event Action endMatch; 
 
     int numRemaining = 0;
 
@@ -48,7 +48,7 @@ public class AiCarManager : MonoBehaviour
         numRemaining--;
         if (numRemaining == 0)
         {
-            //endMatch();
+            endMatch();
         }
         onUIUpdate();
     }

@@ -5,12 +5,9 @@ using Car.Pickup;
 using System;
 
 
-// scene lighting
-// start screen
-// pause screen
-// end screen
-// finish game loop
-// post processing
+
+
+// polish (pickups, pickup placement, balance)
 // sound
 
 namespace Car.Combat

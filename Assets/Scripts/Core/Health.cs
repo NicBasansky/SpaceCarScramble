@@ -135,6 +135,8 @@ namespace Car.Core
                 {
                     o.SetActive(false);
                 }
+
+                
             }
         }
 
