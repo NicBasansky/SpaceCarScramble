@@ -29,7 +29,7 @@ namespace Car.Combat
         void Awake()
         {
             rb = GetComponent<Rigidbody>(); 
-            
+            //audioSource = GetComponent<AudioSource>();
         }   
 
         void Start()
@@ -154,8 +154,19 @@ namespace Car.Combat
             AudioClip impactSound = weapon.GetImpactSound();
             if (impactSound != null)
             {
-                AudioSource.PlayClipAtPoint(impactSound, transform.position);
+                if (weapon.GetProjectile() as Grenade)
+                {
+                    AudioSource.PlayClipAtPoint(impactSound, instigator.transform.position);
+
+                }
+                else
+                {
+                    AudioSource.PlayClipAtPoint(impactSound, transform.position);
+
+                }
             }
+
+            
         }
 
         public void OnTriggerEnter(Collider other) // TODO bouncy projectiles?

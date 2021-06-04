@@ -20,6 +20,7 @@ public class CarController : MonoBehaviour
     //[SerializeField] AudioClip accelAudio;
     AiCarManager aiCarManager;
     [SerializeField] AudioSource engineAudioSource;
+    ParticleEmissionStopper emissionStopper;
     
     Fighter fighter;
 
@@ -37,6 +38,7 @@ public class CarController : MonoBehaviour
     {
         fighter = GetComponent<Fighter>();
         aiCarManager = FindObjectOfType<AiCarManager>();
+        emissionStopper = GetComponent<ParticleEmissionStopper>();
         
     }
 
@@ -132,6 +134,7 @@ public class CarController : MonoBehaviour
             moveInput *= forwardSpeed;
             
             PlayEngineSounds();
+            PlayAfterburner(true);
             
         }
         else if (Mathf.Approximately(moveInput, 0))
@@ -139,17 +142,36 @@ public class CarController : MonoBehaviour
             if (engineAudioSource.isPlaying)
             {
                 engineAudioSource.Stop();
+               
+            }
+            if (emissionStopper.IsEmitting())
+            {
+                PlayAfterburner(false);
             }
         }
         else
         {
             moveInput *= reverseSpeed;
             PlayEngineSounds();
+            PlayAfterburner(true);
         }
 
 
         if (isDead)
             moveInput = 0;
+    }
+
+    void PlayAfterburner(bool showEffect)
+    {
+        if (showEffect && !emissionStopper.IsEmitting())
+        {
+            emissionStopper.StartAllParticleEmission();
+        }
+        else if (!showEffect && emissionStopper.IsEmitting())
+        {
+            emissionStopper.StopAllParticleEmission();
+        }
+        
     }
 
     void TurnVehicle()

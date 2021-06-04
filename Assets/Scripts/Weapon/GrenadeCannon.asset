@@ -26,7 +26,7 @@ MonoBehaviour:
   explosionForce: 2500
   explosionRadius: 9
   hitForce: 80000
-  damage: 30
-  attackCooldownSeconds: 3.2
-  fireSound: {fileID: 8300000, guid: fd89005322b367d4199aa423823c510e, type: 3}
-  impactSound: {fileID: 8300000, guid: 1f8144e2f7e7669478dd95d00556d4e2, type: 3}
+  damage: 25
+  attackCooldownSeconds: 2.9
+  fireSound: {fileID: 8300000, guid: 9c8c6ddb870fbf14eb20bc8da21bf6cb, type: 3}
+  impactSound: {fileID: 8300000, guid: 4e080ed5fccfd864cac3a4a471acb132, type: 3}

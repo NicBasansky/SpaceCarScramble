@@ -8,6 +8,8 @@ public class PersistentMusicPlayer : MonoBehaviour
     [SerializeField] AudioClip mainSynth;
 
     AudioSource audioSource;
+    bool introIsPlaying = false;
+    bool readyToSwitch = false;
 
     void Start()
     {
@@ -20,10 +22,36 @@ public class PersistentMusicPlayer : MonoBehaviour
 
     public void ChangeMusic()
     {
-        audioSource.Stop();
-        audioSource.clip = mainSynth;
-        audioSource.Play();
+        readyToSwitch = true;
         
+    }
+
+
+    private void Update() 
+    {
+        //print("time: " + audioSource.time + " length: " + audioSource.clip.length);
+        if (readyToSwitch)
+        {
+            
+            audioSource.clip = mainSynth;
+            audioSource.Play();
+            StartCoroutine(AlternateClips());
+            readyToSwitch = false;
+            
+        }
+    }
+
+    IEnumerator AlternateClips()
+    {
+        yield return new WaitForSeconds(audioSource.clip.length);
+        
+        audioSource.clip = introSynth;
+        audioSource.Play();
+
+        yield return new WaitForSeconds(audioSource.clip.length);
+
+        readyToSwitch = true;
+
     }
 
     

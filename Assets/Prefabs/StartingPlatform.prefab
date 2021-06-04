@@ -122,5 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1127d9ad384b57b43b74eb3999e5a6c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startSoundDelay: 0.75
+  startSound: {fileID: 8300000, guid: f6911b2eaa6b38d4388cf725f2ff1ab6, type: 3}
   colliderDelay: 3
-  goDelay: 1
+  goDelay: 2

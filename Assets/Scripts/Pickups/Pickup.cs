@@ -9,6 +9,7 @@ namespace Car.Pickup
     public class Pickup : MonoBehaviour
     {
         [SerializeField] ParticleEmissionStopper emissionStopper;
+        [SerializeField] AudioClip pickupSound;
         PowerUp powerUp;
         Fighter fighter;
 
@@ -30,7 +31,9 @@ namespace Car.Pickup
                     emissionStopper.StopAllParticleEmission();
 
                }
-            }    
+               AudioSource.PlayClipAtPoint(pickupSound, transform.position); 
+            }   
+            
         }
 
         private void PickupPowerUp(GameObject player)

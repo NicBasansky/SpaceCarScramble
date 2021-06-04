@@ -651,7 +651,7 @@ BoxCollider:
   m_GameObject: {fileID: 7852780306064989103}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 0.9, z: 1.62}
   m_Center: {x: 0, y: 0.18, z: 1.44}
@@ -664,7 +664,7 @@ BoxCollider:
   m_GameObject: {fileID: 7852780306064989103}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1.2, z: 1.1}
   m_Center: {x: 0, y: 0.27, z: -1.1}
@@ -705,7 +705,7 @@ MonoBehaviour:
   model: {fileID: 1155015382728052401}
   pointLight1: {fileID: 824827210077451702}
   pointLight2: {fileID: 2043217742630484743}
-  deathSound: {fileID: 8300000, guid: 67f7ca1c0dc319245910666ff6fe3544, type: 3}
+  deathSound: {fileID: 8300000, guid: 7dde7ffc4d8883a408a5b81ec94642cb, type: 3}
   health: 0
 --- !u!114 &6032678132253144333
 MonoBehaviour:
