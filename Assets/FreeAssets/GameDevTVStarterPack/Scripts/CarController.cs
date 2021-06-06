@@ -156,7 +156,7 @@ public class CarController : MonoBehaviour
         }
        // moveInput = Input.GetAxisRaw("Vertical");
         //if (moveInput > 0)
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             moveInput = 1;
             moveInput *= forwardSpeed; //* Time.deltaTime; 2300 forward speed if using deltaTime
@@ -177,7 +177,7 @@ public class CarController : MonoBehaviour
         //         PlayAfterburner(false);
         //     }
         // }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             moveInput = -1;
             moveInput *= reverseSpeed;
@@ -224,11 +224,11 @@ public class CarController : MonoBehaviour
             return;
         }
         //turnInput = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             turnInput = -1;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             turnInput = 1;
         }

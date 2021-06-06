@@ -13,6 +13,7 @@ namespace Car.Combat
         [SerializeField] protected ParticleEmissionStopper emissionStopper;
         [SerializeField] protected float lifeTime = 4f;
         [SerializeField] protected float fadeTimeBeforeDestroy = 2f;
+        [SerializeField] protected float friendlyFireProtectionPercent = 0.5f;
         protected bool shouldExplode = false;
         protected bool shouldStopOnImpact = true;
         protected bool isLaunching = false;
@@ -89,7 +90,6 @@ namespace Car.Combat
                             hitRB.AddForce(forceDirection.normalized * weapon.GetHitForce());
                         }
                        
-
                         aiController.AffectHealth(weapon.GetDamage());       
                     
                     }
@@ -104,7 +104,15 @@ namespace Car.Combat
                 AIController aiController = target.gameObject.GetComponent<AIController>();
                 if (aiController == null) return;
 
-                aiController.AffectHealth(weapon.GetDamage());                      
+                if (instigator.tag == "Player")
+                {
+                    aiController.AffectHealth(weapon.GetDamage());
+                }
+                else // friendly fire
+                {
+                    aiController.AffectHealth(weapon.GetDamage() - weapon.GetDamage() * friendlyFireProtectionPercent);
+                }
+                                      
                       
                 Rigidbody hitRB = aiController.GetSphereRigidBody();
                 aiController.FreezeMovementFromHit(0.5f);

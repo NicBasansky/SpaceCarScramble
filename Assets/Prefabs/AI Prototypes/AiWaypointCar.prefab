@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750b4cf47ee491044bb7fefc5b9668da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   deathFX: {fileID: 100014, guid: 3b3f6f982b75f19458bd92a5f0e40f17, type: 3}
   fxParent: {fileID: 0}
   objsToOffOnDeath: []
@@ -722,7 +722,7 @@ MonoBehaviour:
   defaultWeapon: {fileID: 11400000, guid: 76cfd7024f5e954419f2e947b42fd263, type: 2}
   weaponSlots: []
   weaponTransform: {fileID: 8350607838664701178}
-  attackAngle: 20
+  attackAngle: 30
   ammo: 0
   shield: {fileID: 0}
   maxShieldLife: 5

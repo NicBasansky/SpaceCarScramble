@@ -185,7 +185,8 @@ namespace Car.Combat
             Vector3 direction = new Vector3(target.position.x - transform.position.x,
                                             transform.position.y,
                                             target.position.z - transform.position.z);
-            if (Vector3.Angle(transform.forward, direction) < attackAngle
+            if ((Vector3.Angle(transform.forward, direction) < attackAngle 
+                            || Vector3.Distance(target.transform.position, transform.position) <= 3.0f)
                             && !cooldown)
             {
                 FireWeapon();

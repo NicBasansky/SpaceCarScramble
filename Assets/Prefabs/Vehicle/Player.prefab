@@ -459,13 +459,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7126908468949536853}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7629067057097814468}
-  m_Father: {fileID: 1597049702018491598}
-  m_RootOrder: 1
+  m_Father: {fileID: 1596660768632022076}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8170948977072810272
 GameObject:
@@ -631,6 +631,7 @@ MonoBehaviour:
   pauseScreen: {fileID: 0}
   engineAudioSource: {fileID: 2360421994508560836}
   inputDelay: 2
+  uiToDisableDuringPause: []
 --- !u!114 &8781109242349748283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,7 +670,7 @@ MonoBehaviour:
   deathFX: {fileID: 100012, guid: a905d8e5159ffeb46baa8d2a7624717f, type: 3}
   fxParent: {fileID: 0}
   objsToOffOnDeath:
-  - {fileID: 1602479905450808728}
+  - {fileID: 1615257427521609074}
   invincibilityDuration: 2.5
   invinsibilityDeltaTime: 0.15
   model: {fileID: 1602702159525883026}
@@ -787,19 +788,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
---- !u!1 &1602702159525883026 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1500980007755100, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
-  m_PrefabInstance: {fileID: 1601210250628166094}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1602479905450808728 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1551164273271894, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
+--- !u!23 &1615257427521609074 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23125133696396476, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
   m_PrefabInstance: {fileID: 1601210250628166094}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1597049702018491598 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4917030328423680, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
+  m_PrefabInstance: {fileID: 1601210250628166094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1602702159525883026 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1500980007755100, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
+  m_PrefabInstance: {fileID: 1601210250628166094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1596660768632022076 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4748512394401266, guid: f12c7b954ba29cd4f8f7d0e60b91a2e2, type: 3}
   m_PrefabInstance: {fileID: 1601210250628166094}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5411591136876887015

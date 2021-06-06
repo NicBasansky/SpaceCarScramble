@@ -3324,7 +3324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301932694}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -148.29565, y: -6.7174964, z: 12.496853}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -15426,6 +15426,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7932409734248321375, guid: 7810c413a058c1b41975a0d4f3c49acb, type: 3}
+      propertyPath: deathFX
+      value: 
+      objectReference: {fileID: 100008, guid: be7d9c7b953f9b143861af17cf32d4ca, type: 3}
     - target: {fileID: 7932409734248321375, guid: 7810c413a058c1b41975a0d4f3c49acb, type: 3}
       propertyPath: fxParent
       value: 

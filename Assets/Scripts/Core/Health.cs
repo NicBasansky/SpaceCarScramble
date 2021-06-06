@@ -12,7 +12,7 @@ namespace Car.Core
         [SerializeField] float maxHealth;
         [SerializeField] GameObject deathFX;
         [SerializeField] Transform fxParent;
-        [SerializeField] GameObject[] objsToOffOnDeath;
+        [SerializeField] MeshRenderer[] objsToOffOnDeath;
         [SerializeField] float invincibilityDuration = 2.5f;
         [SerializeField] float invinsibilityDeltaTime = 0.15f;
         [SerializeField] GameObject model; 
@@ -135,9 +135,9 @@ namespace Car.Core
                 fx.transform.parent = fxParent;
 
                 GetComponent<CarController>().Die();
-                foreach(GameObject o in objsToOffOnDeath)
+                foreach(MeshRenderer o in objsToOffOnDeath)
                 {
-                    o.SetActive(false);
+                    o.enabled = false;
                 }
 
                 
