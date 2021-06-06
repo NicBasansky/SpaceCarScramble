@@ -110,7 +110,7 @@ public class CarController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (!CheckIfWaitingOnProjectileDetonation())
+            //if (!CheckIfWaitingOnProjectileDetonation())
             {
                 fighter.CycleWeapon();
                 
