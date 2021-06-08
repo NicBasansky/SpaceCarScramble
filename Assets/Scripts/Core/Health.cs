@@ -12,7 +12,8 @@ namespace Car.Core
         [SerializeField] float maxHealth;
         [SerializeField] GameObject deathFX;
         [SerializeField] Transform fxParent;
-        [SerializeField] MeshRenderer[] objsToOffOnDeath;
+        [SerializeField] MeshRenderer[] meshesToOffOnDeath;
+        [SerializeField] Transform parentGOToOffChildrenOnDeath;
         [SerializeField] float invincibilityDuration = 2.5f;
         [SerializeField] float invinsibilityDeltaTime = 0.15f;
         [SerializeField] GameObject model; 
@@ -115,7 +116,6 @@ namespace Car.Core
 
         private void Die()
         {
-            print(gameObject.name + " has died.");
             isDead = true;
             AIController aiController = GetComponent<AIController>();
 
@@ -135,9 +135,13 @@ namespace Car.Core
                 fx.transform.parent = fxParent;
 
                 GetComponent<CarController>().Die();
-                foreach(MeshRenderer o in objsToOffOnDeath)
+                foreach(MeshRenderer o in meshesToOffOnDeath)
                 {
                     o.enabled = false;
+                }
+                foreach(Transform go in parentGOToOffChildrenOnDeath)
+                {
+                    go.gameObject.SetActive(false);
                 }
 
                 

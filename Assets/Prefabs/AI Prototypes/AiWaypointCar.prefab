@@ -699,7 +699,8 @@ MonoBehaviour:
   maxHealth: 50
   deathFX: {fileID: 100014, guid: 3b3f6f982b75f19458bd92a5f0e40f17, type: 3}
   fxParent: {fileID: 0}
-  objsToOffOnDeath: []
+  meshesToOffOnDeath: []
+  parentGOToOffChildrenOnDeath: {fileID: 0}
   invincibilityDuration: 2.5
   invinsibilityDeltaTime: 0.15
   model: {fileID: 1155015382728052401}

@@ -110,7 +110,7 @@ namespace Car.Control
         
             }
                 
-            // TODO check if car is stuck
+
             SetWaypoint();
             
             MovementInput();
@@ -252,7 +252,7 @@ namespace Car.Control
         public void Die()
         {
             isDead = true;
-            // TODO start coroutine of them exploding and destroy
+       
         }
 
         public Rigidbody GetSphereRigidBody()

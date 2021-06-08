@@ -45,7 +45,6 @@ namespace Car.UI
 
         private void CycleIcons(int slotIndex)
         {
-            print("slotIndex: " + slotIndex);
             switch (slotIndex)
             {
                 case 0:

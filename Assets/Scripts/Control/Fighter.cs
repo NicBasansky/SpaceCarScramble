@@ -321,7 +321,7 @@ namespace Car.Combat
         public void FireWeapon()
         {   
                 if (activeWeaponSlot.weapon == null) return;          
-                // TODO Get projectiles from object pool
+      
                 Projectile projectile = Instantiate(activeWeaponSlot.weapon.GetProjectile(), activeWeaponSlot.launchTransform.position, Quaternion.identity);
         
                 projectile.SetupProjectile(activeWeaponSlot.launchTransform, activeWeaponSlot.weapon, this.gameObject, fxParent);                

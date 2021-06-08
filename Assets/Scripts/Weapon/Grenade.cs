@@ -8,12 +8,15 @@ namespace Car.Combat
     {
        
         CarController player;
+        [SerializeField] float lifetime = 2.5f;
+        float timeSinceFiring = Mathf.Infinity;
         
         // Start is called before the first frame update
         void Start()
         {
             player = instigator.GetComponent<CarController>();
             player.setIsWaitingOnDetonation(true);
+            timeSinceFiring = 0;
             
         }
 
@@ -29,8 +32,13 @@ namespace Car.Combat
                 StopEmissionsAndDestroy(.2f);
 
             }
+            
+            timeSinceFiring += Time.deltaTime;
+            if (timeSinceFiring >= lifeTime)
+            {
+                player.setIsWaitingOnDetonation(false);
+            }
 
-           
         }
 
         protected override void FixedUpdate()
@@ -56,6 +64,11 @@ namespace Car.Combat
                 simpleProjectileHit = false;
                 player.setIsWaitingOnDetonation(false);
             }
+        }
+
+        private void OnDestroy() 
+        {
+            player.setIsWaitingOnDetonation(false);
         }
 
       

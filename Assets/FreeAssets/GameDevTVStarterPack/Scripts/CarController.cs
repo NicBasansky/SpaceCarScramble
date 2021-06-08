@@ -78,13 +78,15 @@ public class CarController : MonoBehaviour
 
     void Update()
     { 
-        if (winScreenUp) return;
+        print("waiting on detonation: " + isWaitingOnDetonation);
+        
         
 
         MovementInput();
         TurnVehicle();
         MoveCarBodyWithSphere();
-        
+
+        if (winScreenUp) return;
         if (isDead) return;
 
         if (Input.GetKeyDown("space"))
@@ -149,11 +151,11 @@ public class CarController : MonoBehaviour
 
     private void MovementInput()
     {
-        if (!canMove)
+        if (winScreenUp)
         {
             moveInput = 0;
             return;
-        }
+        } 
        // moveInput = Input.GetAxisRaw("Vertical");
         //if (moveInput > 0)
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
@@ -218,7 +220,7 @@ public class CarController : MonoBehaviour
 
     void TurnVehicle()
     {
-        if (!canMove)
+        if (winScreenUp)
         {
             turnInput = 0;
             return;

@@ -44,7 +44,6 @@ public class AiCarManager : MonoBehaviour
 
     private void OnCarDied()
     {
-        print("car died");
         numRemaining--;
         if (numRemaining == 0)
         {

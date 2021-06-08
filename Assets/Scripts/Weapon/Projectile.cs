@@ -177,7 +177,7 @@ namespace Car.Combat
             
         }
 
-        public void OnTriggerEnter(Collider other) // TODO bouncy projectiles?
+        public void OnTriggerEnter(Collider other)
         {        
             if (other.gameObject == instigator) return;
             
@@ -187,9 +187,7 @@ namespace Car.Combat
                 Vector3 impactPos = vecPlayerToProjectile.normalized * 3f;
 
                 PlayImpactFX(other.transform.position + impactPos);
-                //DisableCollider();
-                //StopEmissionsAndDestroy(3f);
-                print("hit shield");
+             
                 Destroy(this.gameObject);
                 return;
           
@@ -208,9 +206,8 @@ namespace Car.Combat
                 }
                 PlayImpactFX();
             }  
-            else if (other.gameObject.tag == "Player" && instigator.tag != "Player")
+            else if (other != null && other.gameObject.tag == "Player" && instigator.tag != "Player")
             {
-                print("hit player");
                 Health playerHealth = other.gameObject.GetComponent<Health>();
                 if (!playerHealth.GetIsShieldUp())
                 {
@@ -228,6 +225,13 @@ namespace Car.Combat
                     
                     return;
                 }
+            }
+
+            if (other == null) // has died from explosion
+            {
+                Invoke("StopParticleEmmissions", lifeTime - fadeTimeBeforeDestroy);
+                Invoke("DisableCollider", lifeTime - fadeTimeBeforeDestroy);
+                return;
             }
 
             if (shouldStopOnImpact && other.gameObject.layer != LayerMask.NameToLayer("Ground Layer"))
